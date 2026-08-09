@@ -3,6 +3,7 @@
   "short_name": "RemindMe",
   "description": "Your personal alarm, reminder and event app.",
   "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#f5f7fb",
   "theme_color": "#111827",
