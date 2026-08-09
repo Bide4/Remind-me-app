@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#111827">
-
   <link rel="manifest" href="manifest.json">
 
   <title>RemindMe</title>
@@ -21,13 +20,13 @@
       background: #f5f7fb;
       color: #111827;
       min-height: 100vh;
-      padding-bottom: 85px;
+      padding-bottom: 90px;
     }
 
     header {
       background: #111827;
       color: white;
-      padding: 25px 20px;
+      padding: 28px 20px;
       border-radius: 0 0 25px 25px;
     }
 
@@ -37,14 +36,14 @@
     }
 
     header p {
-      opacity: 0.75;
       font-size: 14px;
+      opacity: 0.75;
     }
 
     .container {
-      padding: 20px;
       max-width: 600px;
       margin: auto;
+      padding: 20px;
     }
 
     .quick-actions {
@@ -55,11 +54,11 @@
 
     .action {
       background: white;
-      border-radius: 18px;
       padding: 18px 8px;
+      border-radius: 18px;
       text-align: center;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
       cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
     }
 
     .action:active {
@@ -77,11 +76,11 @@
     }
 
     .section-title {
-      margin: 28px 0 12px;
       font-size: 19px;
+      margin: 28px 0 12px;
     }
 
-    .item-card {
+    .card {
       background: white;
       border-radius: 18px;
       padding: 17px;
@@ -89,45 +88,45 @@
       box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     }
 
-    .item-top {
+    .card-top {
       display: flex;
       justify-content: space-between;
-      gap: 10px;
+      gap: 15px;
     }
 
-    .item-title {
-      font-size: 17px;
+    .card-title {
+      font-size: 18px;
       font-weight: bold;
     }
 
-    .item-info {
-      margin-top: 7px;
+    .card-info {
       color: #6b7280;
       font-size: 13px;
-      line-height: 1.6;
+      line-height: 1.7;
+      margin-top: 6px;
     }
 
     .delete-btn {
-      border: none;
-      background: #fee2e2;
-      color: #b91c1c;
       width: 36px;
       height: 36px;
+      border: none;
       border-radius: 50%;
+      background: #fee2e2;
+      color: #b91c1c;
+      font-size: 20px;
       cursor: pointer;
       flex-shrink: 0;
     }
 
     .empty {
       background: white;
-      padding: 30px 20px;
+      padding: 28px 20px;
       border-radius: 18px;
       text-align: center;
       color: #6b7280;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     }
 
-    .empty .big-icon {
+    .empty-icon {
       font-size: 40px;
       margin-bottom: 10px;
     }
@@ -137,7 +136,7 @@
       position: fixed;
       inset: 0;
       background: rgba(0,0,0,0.55);
-      z-index: 20;
+      z-index: 100;
       align-items: flex-end;
       justify-content: center;
     }
@@ -146,10 +145,10 @@
       background: white;
       width: 100%;
       max-width: 600px;
-      border-radius: 25px 25px 0 0;
-      padding: 25px 20px;
       max-height: 90vh;
       overflow-y: auto;
+      padding: 25px 20px;
+      border-radius: 25px 25px 0 0;
     }
 
     .modal-content h2 {
@@ -167,12 +166,19 @@
       margin-bottom: 7px;
     }
 
-    .input-group input {
+    .input-group input,
+    .input-group textarea {
       width: 100%;
       padding: 13px;
       border: 1px solid #d1d5db;
       border-radius: 12px;
       font-size: 16px;
+      outline: none;
+    }
+
+    .input-group textarea {
+      min-height: 80px;
+      resize: vertical;
     }
 
     .buttons {
@@ -207,81 +213,12 @@
       left: 0;
       right: 0;
       background: white;
+      border-top: 1px solid #e5e7eb;
       display: flex;
       justify-content: space-around;
-      padding: 12px 5px;
-      border-top: 1px solid #e5e7eb;
-      z-index: 10;
-    }<!-- EVENT MODAL -->
-
-<div class="modal" id="eventModal">
-
-  <div class="modal-content">
-
-    <h2>📅 New Event</h2>
-
-    <div class="input-group">
-      <label>Event name</label>
-      <input
-        type="text"
-        id="eventTitle"
-        placeholder="e.g. Birthday Party"
-      >
-    </div>
-
-    <div class="input-group">
-      <label>Date</label>
-      <input
-        type="date"
-        id="eventDate"
-      >
-    </div>
-
-    <div class="input-group">
-      <label>Time</label>
-      <input
-        type="time"
-        id="eventTime"
-      >
-    </div>
-
-    <div class="input-group">
-      <label>Location</label>
-      <input
-        type="text"
-        id="eventLocation"
-        placeholder="e.g. Lagos"
-      >
-    </div>
-
-    <div class="input-group">
-      <label>Notes</label>
-      <input
-        type="text"
-        id="eventNotes"
-        placeholder="Add a note"
-      >
-    </div>
-
-    <div class="buttons">
-
-      <button
-        class="btn cancel"
-        onclick="closeEventModal()">
-        Cancel
-      </button>
-
-      <button
-        class="btn save"
-        onclick="saveEvent()">
-        Save Event
-      </button>
-
-    </div>
-
-  </div>
-
-</div>
+      padding: 11px 5px;
+      z-index: 50;
+    }
 
     .nav-item {
       text-align: center;
@@ -291,8 +228,8 @@
     }
 
     .nav-item .nav-icon {
-      font-size: 22px;
       display: block;
+      font-size: 22px;
       margin-bottom: 3px;
     }
 
@@ -322,7 +259,9 @@
   <p>Your day, organized.</p>
 </header>
 
-<div class="container">
+<main class="container">
+
+  <!-- QUICK ACTIONS -->
 
   <div class="quick-actions">
 
@@ -336,22 +275,32 @@
       <p>Reminder</p>
     </div>
 
-    <div class="action" onclick="openEventModal()"
+    <div class="action" onclick="openEventModal()">
       <div class="icon">📅</div>
       <p>Event</p>
     </div>
 
   </div>
 
-  <h2 class="section-title">My Alarms</h2>
 
+  <!-- ALARMS -->
+
+  <h2 class="section-title">My Alarms</h2>
   <div id="alarmList"></div>
 
-  <h2 class="section-title">My Reminders</h2>
 
+  <!-- REMINDERS -->
+
+  <h2 class="section-title">My Reminders</h2>
   <div id="reminderList"></div>
 
-</div>
+
+  <!-- EVENTS -->
+
+  <h2 class="section-title">My Events</h2>
+  <div id="eventList"></div>
+
+</main>
 
 
 <!-- ALARM MODAL -->
@@ -369,27 +318,17 @@
 
     <div class="input-group">
       <label>Alarm name</label>
-      <input
-        type="text"
-        id="alarmName"
-        placeholder="e.g. Wake up"
-      >
+      <input type="text" id="alarmName" placeholder="e.g. Wake up">
     </div>
 
     <div class="buttons">
-
-      <button
-        class="btn cancel"
-        onclick="closeAlarmModal()">
+      <button class="btn cancel" onclick="closeAlarmModal()">
         Cancel
       </button>
 
-      <button
-        class="btn save"
-        onclick="saveAlarm()">
+      <button class="btn save" onclick="saveAlarm()">
         Save Alarm
       </button>
-
     </div>
 
   </div>
@@ -406,53 +345,28 @@
     <h2>🔔 New Reminder</h2>
 
     <div class="input-group">
-
       <label>Reminder title</label>
-
-      <input
-        type="text"
-        id="reminderTitle"
-        placeholder="e.g. Call Mum"
-      >
-
+      <input type="text" id="reminderTitle" placeholder="e.g. Call Mum">
     </div>
 
     <div class="input-group">
-
       <label>Date</label>
-
-      <input
-        type="date"
-        id="reminderDate"
-      >
-
+      <input type="date" id="reminderDate">
     </div>
 
     <div class="input-group">
-
       <label>Time</label>
-
-      <input
-        type="time"
-        id="reminderTime"
-      >
-
+      <input type="time" id="reminderTime">
     </div>
 
     <div class="buttons">
-
-      <button
-        class="btn cancel"
-        onclick="closeReminderModal()">
+      <button class="btn cancel" onclick="closeReminderModal()">
         Cancel
       </button>
 
-      <button
-        class="btn save"
-        onclick="saveReminder()">
+      <button class="btn save" onclick="saveReminder()">
         Save Reminder
       </button>
-
     </div>
 
   </div>
@@ -460,7 +374,55 @@
 </div>
 
 
-<!-- BOTTOM NAV -->
+<!-- EVENT MODAL -->
+
+<div class="modal" id="eventModal">
+
+  <div class="modal-content">
+
+    <h2>📅 New Event</h2>
+
+    <div class="input-group">
+      <label>Event name</label>
+      <input type="text" id="eventTitle" placeholder="e.g. Birthday Party">
+    </div>
+
+    <div class="input-group">
+      <label>Date</label>
+      <input type="date" id="eventDate">
+    </div>
+
+    <div class="input-group">
+      <label>Time</label>
+      <input type="time" id="eventTime">
+    </div>
+
+    <div class="input-group">
+      <label>Location</label>
+      <input type="text" id="eventLocation" placeholder="e.g. Lagos">
+    </div>
+
+    <div class="input-group">
+      <label>Notes</label>
+      <textarea id="eventNotes" placeholder="Add notes about this event"></textarea>
+    </div>
+
+    <div class="buttons">
+      <button class="btn cancel" onclick="closeEventModal()">
+        Cancel
+      </button>
+
+      <button class="btn save" onclick="saveEvent()">
+        Save Event
+      </button>
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- BOTTOM NAVIGATION -->
 
 <nav class="bottom-nav">
 
@@ -469,31 +431,19 @@
     Home
   </div>
 
-  <div
-    class="nav-item"
-    onclick="openAlarmModal()">
-
+  <div class="nav-item" onclick="openAlarmModal()">
     <span class="nav-icon">⏰</span>
     Alarms
-
   </div>
 
-  <div
-    class="nav-item"
-    onclick="openReminderModal()">
-
+  <div class="nav-item" onclick="openReminderModal()">
     <span class="nav-icon">🔔</span>
     Reminders
-
   </div>
 
-  <div
-    class="nav-item"
-    onclick="openEventModal()"
-
+  <div class="nav-item" onclick="openEventModal()">
     <span class="nav-icon">📅</span>
     Events
-
   </div>
 
 </nav>
@@ -505,181 +455,94 @@
      ALARMS
   ========================= */
 
-  let alarms = JSON.parse(
-    localStorage.getItem("remindme_alarms")
-  ) || [];
+  let alarms =
+    JSON.parse(localStorage.getItem("remindme_alarms")) || [];
 
 
   function openAlarmModal() {
-
-    document.getElementById(
-      "alarmModal"
-    ).style.display = "flex";
-
+    document.getElementById("alarmModal").style.display = "flex";
   }
 
 
   function closeAlarmModal() {
-
-    document.getElementById(
-      "alarmModal"
-    ).style.display = "none";
-
-    document.getElementById(
-      "alarmTime"
-    ).value = "";
-
-    document.getElementById(
-      "alarmName"
-    ).value = "";
-
+    document.getElementById("alarmModal").style.display = "none";
+    document.getElementById("alarmTime").value = "";
+    document.getElementById("alarmName").value = "";
   }
 
 
   function saveAlarm() {
 
     const time =
-      document.getElementById(
-        "alarmTime"
-      ).value;
+      document.getElementById("alarmTime").value;
 
     const name =
-      document.getElementById(
-        "alarmName"
-      ).value.trim() || "Alarm";
+      document.getElementById("alarmName").value.trim() || "Alarm";
 
 
     if (!time) {
-
-      alert(
-        "Please choose an alarm time."
-      );
-
+      alert("Please choose an alarm time.");
       return;
-
     }
 
 
     alarms.push({
-
       id: Date.now(),
-
       time: time,
-
       name: name,
-
       enabled: true
-
     });
 
 
     localStorage.setItem(
-
       "remindme_alarms",
-
       JSON.stringify(alarms)
-
     );
 
 
     closeAlarmModal();
-
     displayAlarms();
-
-  }
-
-
-  function toggleAlarm(id) {
-
-    alarms = alarms.map(alarm => {
-
-      if (alarm.id === id) {
-
-        alarm.enabled =
-          !alarm.enabled;
-
-      }
-
-      return alarm;
-
-    });
-
-
-    localStorage.setItem(
-
-      "remindme_alarms",
-
-      JSON.stringify(alarms)
-
-    );
-
-
-    displayAlarms();
-
   }
 
 
   function deleteAlarm(id) {
 
-    alarms = alarms.filter(
-
-      alarm => alarm.id !== id
-
-    );
+    alarms =
+      alarms.filter(alarm => alarm.id !== id);
 
 
     localStorage.setItem(
-
       "remindme_alarms",
-
       JSON.stringify(alarms)
-
     );
 
 
     displayAlarms();
-
   }
 
 
   function displayAlarms() {
 
     const list =
-      document.getElementById(
-        "alarmList"
-      );
+      document.getElementById("alarmList");
 
 
     if (alarms.length === 0) {
 
       list.innerHTML = `
-
         <div class="empty">
-
-          <div class="big-icon">
-            ⏰
-          </div>
-
-          <p>
-            No alarms yet.
-          </p>
-
+          <div class="empty-icon">⏰</div>
+          <p>No alarms yet.</p>
           <br>
-
-          <small>
-            Tap Alarm above to create one.
-          </small>
-
+          <small>Tap Alarm above to create one.</small>
         </div>
-
       `;
 
       return;
-
     }
 
 
-    alarms.sort((a,b) =>
+    alarms.sort((a, b) =>
       a.time.localeCompare(b.time)
     );
 
@@ -687,41 +550,33 @@
     list.innerHTML =
       alarms.map(alarm => `
 
-        <div class="item-card">
+        <div class="card">
 
-          <div class="item-top">
+          <div class="card-top">
 
             <div>
 
-              <div class="item-title">
+              <div class="card-title">
                 ${formatTime(alarm.time)}
               </div>
 
-              <div class="item-info">
+              <div class="card-info">
                 ${escapeHTML(alarm.name)}
               </div>
 
             </div>
 
-
-            <div>
-
-              <button
-                class="delete-btn"
-                onclick="deleteAlarm(${alarm.id})">
-
-                ×
-
-              </button>
-
-            </div>
+            <button
+              class="delete-btn"
+              onclick="deleteAlarm(${alarm.id})">
+              ×
+            </button>
 
           </div>
 
         </div>
 
       `).join("");
-
   }
 
 
@@ -729,127 +584,71 @@
      REMINDERS
   ========================= */
 
-  let reminders = JSON.parse(
-
-    localStorage.getItem(
-      "remindme_reminders"
-    )
-
-  ) || [];
+  let reminders =
+    JSON.parse(localStorage.getItem("remindme_reminders")) || [];
 
 
   function openReminderModal() {
-
-    document.getElementById(
-      "reminderModal"
-    ).style.display = "flex";
-
+    document.getElementById("reminderModal").style.display = "flex";
   }
 
 
   function closeReminderModal() {
 
-    document.getElementById(
-      "reminderModal"
-    ).style.display = "none";
+    document.getElementById("reminderModal").style.display = "none";
 
-
-    document.getElementById(
-      "reminderTitle"
-    ).value = "";
-
-
-    document.getElementById(
-      "reminderDate"
-    ).value = "";
-
-
-    document.getElementById(
-      "reminderTime"
-    ).value = "";
-
+    document.getElementById("reminderTitle").value = "";
+    document.getElementById("reminderDate").value = "";
+    document.getElementById("reminderTime").value = "";
   }
 
 
   function saveReminder() {
 
     const title =
-      document.getElementById(
-        "reminderTitle"
-      ).value.trim();
-
+      document.getElementById("reminderTitle").value.trim();
 
     const date =
-      document.getElementById(
-        "reminderDate"
-      ).value;
-
+      document.getElementById("reminderDate").value;
 
     const time =
-      document.getElementById(
-        "reminderTime"
-      ).value;
+      document.getElementById("reminderTime").value;
 
 
     if (!title) {
-
-      alert(
-        "Please enter a reminder title."
-      );
-
+      alert("Please enter a reminder title.");
       return;
-
     }
 
 
     if (!date) {
-
-      alert(
-        "Please choose a date."
-      );
-
+      alert("Please choose a date.");
       return;
-
     }
 
 
     if (!time) {
-
-      alert(
-        "Please choose a time."
-      );
-
+      alert("Please choose a time.");
       return;
-
     }
 
 
     reminders.push({
-
       id: Date.now(),
-
       title: title,
-
       date: date,
-
       time: time
-
     });
 
 
     localStorage.setItem(
-
       "remindme_reminders",
-
       JSON.stringify(reminders)
-
     );
 
 
     closeReminderModal();
-
     displayReminders();
-
   }
 
 
@@ -857,73 +656,47 @@
 
     reminders =
       reminders.filter(
-
-        reminder =>
-          reminder.id !== id
-
+        reminder => reminder.id !== id
       );
 
 
     localStorage.setItem(
-
       "remindme_reminders",
-
       JSON.stringify(reminders)
-
     );
 
 
     displayReminders();
-
   }
 
 
   function displayReminders() {
 
     const list =
-      document.getElementById(
-        "reminderList"
-      );
+      document.getElementById("reminderList");
 
 
     if (reminders.length === 0) {
 
       list.innerHTML = `
-
         <div class="empty">
-
-          <div class="big-icon">
-            🔔
-          </div>
-
-          <p>
-            No reminders yet.
-          </p>
-
+          <div class="empty-icon">🔔</div>
+          <p>No reminders yet.</p>
           <br>
-
-          <small>
-            Tap Reminder above to create one.
-          </small>
-
+          <small>Tap Reminder above to create one.</small>
         </div>
-
       `;
 
       return;
-
     }
 
 
-    reminders.sort((a,b) => {
+    reminders.sort((a, b) => {
 
-      const first =
-        a.date + " " + a.time;
-
-      const second =
-        b.date + " " + b.time;
-
-      return first.localeCompare(second);
+      return (
+        (a.date + a.time)
+          .localeCompare(b.date + b.time)
+      );
 
     });
 
@@ -931,43 +704,28 @@
     list.innerHTML =
       reminders.map(reminder => `
 
-        <div class="item-card">
+        <div class="card">
 
-          <div class="item-top">
+          <div class="card-top">
 
             <div>
 
-              <div class="item-title">
-
-                ${escapeHTML(
-                  reminder.title
-                )}
-
+              <div class="card-title">
+                ${escapeHTML(reminder.title)}
               </div>
 
-              <div class="item-info">
-
-                📅 ${formatDate(
-                  reminder.date
-                )}
-
+              <div class="card-info">
+                📅 ${formatDate(reminder.date)}
                 <br>
-
-                ⏰ ${formatTime(
-                  reminder.time
-                )}
-
+                ⏰ ${formatTime(reminder.time)}
               </div>
 
             </div>
 
-
             <button
               class="delete-btn"
               onclick="deleteReminder(${reminder.id})">
-
               ×
-
             </button>
 
           </div>
@@ -975,282 +733,167 @@
         </div>
 
       `).join("");
-
   }
 
 
   /* =========================
-     HELPERS
+     EVENTS
   ========================= */
-/* =========================
-   EVENTS
-========================= */
 
-let events = JSON.parse(
-  localStorage.getItem("remindme_events")
-) || [];
+  let events =
+    JSON.parse(localStorage.getItem("remindme_events")) || [];
 
 
-function openEventModal() {
-
-  document.getElementById(
-    "eventModal"
-  ).style.display = "flex";
-
-}
-
-
-function closeEventModal() {
-
-  document.getElementById(
-    "eventModal"
-  ).style.display = "none";
-
-  document.getElementById(
-    "eventTitle"
-  ).value = "";
-
-  document.getElementById(
-    "eventDate"
-  ).value = "";
-
-  document.getElementById(
-    "eventTime"
-  ).value = "";
-
-  document.getElementById(
-    "eventLocation"
-  ).value = "";
-
-  document.getElementById(
-    "eventNotes"
-  ).value = "";
-
-}
-
-
-function saveEvent() {
-
-  const title =
-    document.getElementById(
-      "eventTitle"
-    ).value.trim();
-
-  const date =
-    document.getElementById(
-      "eventDate"
-    ).value;
-
-  const time =
-    document.getElementById(
-      "eventTime"
-    ).value;
-
-  const location =
-    document.getElementById(
-      "eventLocation"
-    ).value.trim();
-
-  const notes =
-    document.getElementById(
-      "eventNotes"
-    ).value.trim();
-
-
-  if (!title) {
-
-    alert(
-      "Please enter an event name."
-    );
-
-    return;
-
+  function openEventModal() {
+    document.getElementById("eventModal").style.display = "flex";
   }
 
 
-  if (!date) {
+  function closeEventModal() {
 
-    alert(
-      "Please choose an event date."
-    );
+    document.getElementById("eventModal").style.display = "none";
 
-    return;
-
+    document.getElementById("eventTitle").value = "";
+    document.getElementById("eventDate").value = "";
+    document.getElementById("eventTime").value = "";
+    document.getElementById("eventLocation").value = "";
+    document.getElementById("eventNotes").value = "";
   }
 
 
-  if (!time) {
+  function saveEvent() {
 
-    alert(
-      "Please choose an event time."
+    const title =
+      document.getElementById("eventTitle").value.trim();
+
+    const date =
+      document.getElementById("eventDate").value;
+
+    const time =
+      document.getElementById("eventTime").value;
+
+    const location =
+      document.getElementById("eventLocation").value.trim();
+
+    const notes =
+      document.getElementById("eventNotes").value.trim();
+
+
+    if (!title) {
+      alert("Please enter an event name.");
+      return;
+    }
+
+
+    if (!date) {
+      alert("Please choose an event date.");
+      return;
+    }
+
+
+    if (!time) {
+      alert("Please choose an event time.");
+      return;
+    }
+
+
+    events.push({
+      id: Date.now(),
+      title: title,
+      date: date,
+      time: time,
+      location: location,
+      notes: notes
+    });
+
+
+    localStorage.setItem(
+      "remindme_events",
+      JSON.stringify(events)
     );
 
-    return;
 
+    closeEventModal();
+    displayEvents();
   }
 
 
-  events.push({
+  function deleteEvent(id) {
 
-    id: Date.now(),
-
-    title: title,
-
-    date: date,
-
-    time: time,
-
-    location: location,
-
-    notes: notes
-
-  });
+    events =
+      events.filter(event => event.id !== id);
 
 
-  localStorage.setItem(
-
-    "remindme_events",
-
-    JSON.stringify(events)
-
-  );
-
-
-  closeEventModal();
-
-  displayEvents();
-
-}
-
-
-function deleteEvent(id) {
-
-  events =
-    events.filter(
-      event => event.id !== id
+    localStorage.setItem(
+      "remindme_events",
+      JSON.stringify(events)
     );
 
 
-  localStorage.setItem(
-
-    "remindme_events",
-
-    JSON.stringify(events)
-
-  );
+    displayEvents();
+  }
 
 
-  displayEvents();
+  function displayEvents() {
 
-}
-
-
-function displayEvents() {
-
-  const list =
-    document.getElementById(
-      "reminderList"
-    );
+    const list =
+      document.getElementById("eventList");
 
 
-  if (!list) return;
+    if (events.length === 0) {
+
+      list.innerHTML = `
+        <div class="empty">
+          <div class="empty-icon">📅</div>
+          <p>No events yet.</p>
+          <br>
+          <small>Tap Event above to create one.</small>
+        </div>
+      `;
+
+      return;
+    }
 
 
-  let eventSection =
-    document.getElementById(
-      "eventList"
-    );
+    events.sort((a, b) => {
 
-
-  if (!eventSection) {
-
-    eventSection =
-      document.createElement(
-        "div"
+      return (
+        (a.date + a.time)
+          .localeCompare(b.date + b.time)
       );
 
-    eventSection.id =
-      "eventList";
-
-    list.parentNode.appendChild(
-      eventSection
-    );
-
-  }
+    });
 
 
-  if (events.length === 0) {
-
-    eventSection.innerHTML = "";
-
-    return;
-
-  }
-
-
-  events.sort((a, b) => {
-
-    const first =
-      a.date + " " + a.time;
-
-    const second =
-      b.date + " " + b.time;
-
-    return first.localeCompare(
-      second
-    );
-
-  });
-
-
-  eventSection.innerHTML = `
-
-    <h2 class="section-title">
-      My Events
-    </h2>
-
-    ${
+    list.innerHTML =
       events.map(event => `
 
-        <div class="item-card">
+        <div class="card">
 
-          <div class="item-top">
+          <div class="card-top">
 
             <div>
 
-              <div class="item-title">
-
-                📅 ${escapeHTML(
-                  event.title
-                )}
-
+              <div class="card-title">
+                📅 ${escapeHTML(event.title)}
               </div>
 
-              <div class="item-info">
+              <div class="card-info">
 
-                📅 ${formatDate(
-                  event.date
-                )}
-
+                📅 ${formatDate(event.date)}
                 <br>
 
-                ⏰ ${formatTime(
-                  event.time
-                )}
+                ⏰ ${formatTime(event.time)}
 
                 ${
                   event.location
-                    ? `<br>📍 ${escapeHTML(
-                        event.location
-                      )}`
+                    ? `<br>📍 ${escapeHTML(event.location)}`
                     : ""
                 }
 
                 ${
                   event.notes
-                    ? `<br>📝 ${escapeHTML(
-                        event.notes
-                      )}`
+                    ? `<br>📝 ${escapeHTML(event.notes)}`
                     : ""
                 }
 
@@ -1258,95 +901,66 @@ function displayEvents() {
 
             </div>
 
-
             <button
               class="delete-btn"
               onclick="deleteEvent(${event.id})">
-
               ×
-
             </button>
 
           </div>
 
         </div>
 
-      `).join("")
-    }
-
-  `;
-
+      `).join("");
   }
+
+
+  /* =========================
+     HELPERS
+  ========================= */
+
   function formatTime(time) {
 
     const [hour, minute] =
       time.split(":");
 
 
-    const date =
-      new Date();
+    const date = new Date();
+
+    date.setHours(Number(hour));
+    date.setMinutes(Number(minute));
 
 
-    date.setHours(hour);
-
-    date.setMinutes(minute);
-
-
-    return date.toLocaleTimeString(
-      [],
-      {
-        hour: "numeric",
-        minute: "2-digit"
-      }
-    );
-
+    return date.toLocaleTimeString([], {
+      hour: "numeric",
+      minute: "2-digit"
+    });
   }
 
 
   function formatDate(dateString) {
 
     const date =
-      new Date(
-        dateString + "T00:00:00"
-      );
+      new Date(dateString + "T00:00:00");
 
 
-    return date.toLocaleDateString(
-      [],
-      {
-        weekday: "short",
-        month: "short",
-        day: "numeric",
-        year: "numeric"
-      }
-    );
-
+    return date.toLocaleDateString([], {
+      weekday: "short",
+      month: "short",
+      day: "numeric",
+      year: "numeric"
+    });
   }
 
 
   function escapeHTML(text) {
 
     const div =
-      document.createElement(
-        "div"
-      );
-
+      document.createElement("div");
 
     div.textContent = text;
 
-
     return div.innerHTML;
-
-  }
-
-
-  function comingSoon(feature) {
-
-    alert(
-      feature +
-      " feature is coming next!"
-    );
-
   }
 
 
@@ -1355,26 +969,28 @@ function displayEvents() {
   ========================= */
 
   displayAlarms();
-
   displayReminders();
-
   displayEvents();
-  /* SERVICE WORKER */
 
-  if (
-    "serviceWorker" in navigator
-  ) {
 
-    window.addEventListener(
-      "load",
-      () => {
+  /* =========================
+     SERVICE WORKER
+  ========================= */
 
-        navigator.serviceWorker.register(
-          "./service-worker.js"
+  if ("serviceWorker" in navigator) {
+
+    window.addEventListener("load", () => {
+
+      navigator.serviceWorker.register(
+        "./service-worker.js"
+      ).catch(error => {
+        console.log(
+          "Service worker registration failed:",
+          error
         );
+      });
 
-      }
-    );
+    });
 
   }
 
