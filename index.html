@@ -396,7 +396,17 @@
       <label>Time</label>
       <input type="time" id="eventTime">
     </div>
+<div class="input-group">
+  <label>Remind me</label>
 
+  <select id="eventReminder" style="width:100%; padding:13px; border:1px solid #d1d5db; border-radius:12px; font-size:16px;">
+    <option value="0">At event time</option>
+    <option value="10">10 minutes before</option>
+    <option value="30">30 minutes before</option>
+    <option value="60">1 hour before</option>
+    <option value="1440">1 day before</option>
+  </select>
+</div>
     <div class="input-group">
       <label>Location</label>
       <input type="text" id="eventLocation" placeholder="e.g. Lagos">
