@@ -971,7 +971,9 @@
   displayAlarms();
   displayReminders();
   displayEvents();
-
+if ("Notification" in window && Notification.permission === "default") {
+  Notification.requestPermission();
+      }
 
   /* =========================
      SERVICE WORKER
