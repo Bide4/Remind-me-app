@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#111827">
   <title>RemindMe</title>
-
+<link rel="manifest" href="manifest.json">
   <style>
     * {
       box-sizing: border-box;
@@ -558,5 +558,11 @@
 
 </script>
 
-</body>
+</body><script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("./service-worker.js");
+    });
+  }
+</script>
 </html>
