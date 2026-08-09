@@ -18,6 +18,7 @@
       background: #f5f7fb;
       color: #111827;
       min-height: 100vh;
+      padding-bottom: 80px;
     }
 
     header {
@@ -47,7 +48,6 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 12px;
-      margin-top: -5px;
     }
 
     .action {
@@ -57,6 +57,10 @@
       text-align: center;
       box-shadow: 0 4px 15px rgba(0,0,0,0.06);
       cursor: pointer;
+    }
+
+    .action:active {
+      transform: scale(0.97);
     }
 
     .action .icon {
@@ -72,6 +76,85 @@
     .section-title {
       margin: 28px 0 12px;
       font-size: 19px;
+    }
+
+    .alarm-card {
+      background: white;
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .alarm-time {
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    .alarm-name {
+      color: #6b7280;
+      margin-top: 5px;
+      font-size: 14px;
+    }
+
+    .alarm-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .delete-btn {
+      border: none;
+      background: #fee2e2;
+      color: #b91c1c;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .switch {
+      position: relative;
+      width: 45px;
+      height: 25px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      inset: 0;
+      background: #d1d5db;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .slider:before {
+      content: "";
+      position: absolute;
+      width: 19px;
+      height: 19px;
+      left: 3px;
+      top: 3px;
+      background: white;
+      border-radius: 50%;
+      transition: 0.2s;
+    }
+
+    input:checked + .slider {
+      background: #111827;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(20px);
     }
 
     .empty {
@@ -98,12 +181,14 @@
       justify-content: space-around;
       padding: 12px 5px;
       border-top: 1px solid #e5e7eb;
+      z-index: 10;
     }
 
     .nav-item {
       text-align: center;
       color: #6b7280;
       font-size: 12px;
+      cursor: pointer;
     }
 
     .nav-item .nav-icon {
@@ -117,8 +202,80 @@
       font-weight: bold;
     }
 
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 20;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: white;
+      width: 100%;
+      max-width: 600px;
+      border-radius: 25px 25px 0 0;
+      padding: 25px 20px;
+    }
+
+    .modal-content h2 {
+      margin-bottom: 20px;
+    }
+
+    .input-group {
+      margin-bottom: 16px;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 7px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #d1d5db;
+      border-radius: 12px;
+      font-size: 16px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .cancel {
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    .save {
+      background: #111827;
+      color: white;
+    }
+
     @media (min-width: 601px) {
       body {
+        max-width: 600px;
+        margin: auto;
+      }
+
+      .bottom-nav {
         max-width: 600px;
         margin: auto;
       }
@@ -128,82 +285,278 @@
 
 <body>
 
-  <header>
-    <h1>RemindMe</h1>
-    <p>Your day, organized.</p>
-  </header>
+<header>
+  <h1>RemindMe</h1>
+  <p>Your day, organized.</p>
+</header>
 
-  <div class="container">
+<div class="container">
 
-    <div class="quick-actions">
+  <div class="quick-actions">
 
-      <div class="action" onclick="addAlarm()">
-        <div class="icon">⏰</div>
-        <p>Alarm</p>
-      </div>
-
-      <div class="action" onclick="addReminder()">
-        <div class="icon">🔔</div>
-        <p>Reminder</p>
-      </div>
-
-      <div class="action" onclick="addEvent()">
-        <div class="icon">📅</div>
-        <p>Event</p>
-      </div>
-
+    <div class="action" onclick="openAlarmModal()">
+      <div class="icon">⏰</div>
+      <p>Alarm</p>
     </div>
 
-    <h2 class="section-title">Upcoming</h2>
+    <div class="action" onclick="comingSoon('Reminder')">
+      <div class="icon">🔔</div>
+      <p>Reminder</p>
+    </div>
 
-    <div class="empty" id="upcoming">
-      <div class="big-icon">🗓️</div>
-      <p>No upcoming reminders or events.</p>
-      <br>
-      <small>Add something to get started.</small>
+    <div class="action" onclick="comingSoon('Event')">
+      <div class="icon">📅</div>
+      <p>Event</p>
     </div>
 
   </div>
 
-  <nav class="bottom-nav">
+  <h2 class="section-title">My Alarms</h2>
 
-    <div class="nav-item active">
-      <span class="nav-icon">🏠</span>
-      Home
+  <div id="alarmList"></div>
+
+</div>
+
+<div class="modal" id="alarmModal">
+
+  <div class="modal-content">
+
+    <h2>⏰ New Alarm</h2>
+
+    <div class="input-group">
+      <label>Alarm time</label>
+      <input type="time" id="alarmTime">
     </div>
 
-    <div class="nav-item">
-      <span class="nav-icon">⏰</span>
-      Alarms
+    <div class="input-group">
+      <label>Alarm name</label>
+      <input
+        type="text"
+        id="alarmName"
+        placeholder="e.g. Wake up"
+      >
     </div>
 
-    <div class="nav-item">
-      <span class="nav-icon">🔔</span>
-      Reminders
+    <div class="buttons">
+      <button class="btn cancel" onclick="closeAlarmModal()">
+        Cancel
+      </button>
+
+      <button class="btn save" onclick="saveAlarm()">
+        Save Alarm
+      </button>
     </div>
 
-    <div class="nav-item">
-      <span class="nav-icon">📅</span>
-      Events
-    </div>
+  </div>
 
-  </nav>
+</div>
 
-  <script>
+<nav class="bottom-nav">
 
-    function addAlarm() {
-      alert("Alarm feature coming next!");
+  <div class="nav-item active">
+    <span class="nav-icon">🏠</span>
+    Home
+  </div>
+
+  <div class="nav-item" onclick="openAlarmModal()">
+    <span class="nav-icon">⏰</span>
+    Alarms
+  </div>
+
+  <div class="nav-item" onclick="comingSoon('Reminder')">
+    <span class="nav-icon">🔔</span>
+    Reminders
+  </div>
+
+  <div class="nav-item" onclick="comingSoon('Event')">
+    <span class="nav-icon">📅</span>
+    Events
+  </div>
+
+</nav>
+
+<script>
+
+  let alarms = JSON.parse(
+    localStorage.getItem("remindme_alarms")
+  ) || [];
+
+  function openAlarmModal() {
+    document.getElementById("alarmModal").style.display = "flex";
+  }
+
+  function closeAlarmModal() {
+    document.getElementById("alarmModal").style.display = "none";
+
+    document.getElementById("alarmTime").value = "";
+    document.getElementById("alarmName").value = "";
+  }
+
+  function saveAlarm() {
+
+    const time = document.getElementById("alarmTime").value;
+    const name =
+      document.getElementById("alarmName").value.trim() ||
+      "Alarm";
+
+    if (!time) {
+      alert("Please choose an alarm time.");
+      return;
     }
 
-    function addReminder() {
-      alert("Reminder feature coming next!");
+    const alarm = {
+      id: Date.now(),
+      time: time,
+      name: name,
+      enabled: true
+    };
+
+    alarms.push(alarm);
+
+    localStorage.setItem(
+      "remindme_alarms",
+      JSON.stringify(alarms)
+    );
+
+    closeAlarmModal();
+
+    displayAlarms();
+  }
+
+  function toggleAlarm(id) {
+
+    alarms = alarms.map(alarm => {
+
+      if (alarm.id === id) {
+        alarm.enabled = !alarm.enabled;
+      }
+
+      return alarm;
+
+    });
+
+    localStorage.setItem(
+      "remindme_alarms",
+      JSON.stringify(alarms)
+    );
+
+    displayAlarms();
+  }
+
+  function deleteAlarm(id) {
+
+    alarms = alarms.filter(
+      alarm => alarm.id !== id
+    );
+
+    localStorage.setItem(
+      "remindme_alarms",
+      JSON.stringify(alarms)
+    );
+
+    displayAlarms();
+  }
+
+  function displayAlarms() {
+
+    const list = document.getElementById("alarmList");
+
+    if (alarms.length === 0) {
+
+      list.innerHTML = `
+        <div class="empty">
+          <div class="big-icon">⏰</div>
+          <p>No alarms yet.</p>
+          <br>
+          <small>Tap Alarm above to create one.</small>
+        </div>
+      `;
+
+      return;
     }
 
-    function addEvent() {
-      alert("Event feature coming next!");
-    }
+    alarms.sort((a, b) =>
+      a.time.localeCompare(b.time)
+    );
 
-  </script>
+    list.innerHTML = alarms.map(alarm => {
+
+      return `
+        <div class="alarm-card">
+
+          <div>
+            <div class="alarm-time">
+              ${formatTime(alarm.time)}
+            </div>
+
+            <div class="alarm-name">
+              ${escapeHTML(alarm.name)}
+            </div>
+          </div>
+
+          <div class="alarm-controls">
+
+            <button
+              class="delete-btn"
+              onclick="deleteAlarm(${alarm.id})"
+            >
+              ×
+            </button>
+
+            <label class="switch">
+
+              <input
+                type="checkbox"
+                ${alarm.enabled ? "checked" : ""}
+                onchange="toggleAlarm(${alarm.id})"
+              >
+
+              <span class="slider"></span>
+
+            </label>
+
+          </div>
+
+        </div>
+      `;
+
+    }).join("");
+
+  }
+
+  function formatTime(time) {
+
+    const [hour, minute] = time.split(":");
+
+    const date = new Date();
+
+    date.setHours(hour);
+    date.setMinutes(minute);
+
+    return date.toLocaleTimeString([], {
+      hour: "numeric",
+      minute: "2-digit"
+    });
+
+  }
+
+  function escapeHTML(text) {
+
+    const div = document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
+
+  }
+
+  function comingSoon(feature) {
+    alert(feature + " feature is coming next!");
+  }
+
+  displayAlarms();
+
+</script>
 
 </body>
-        </html>
+</html>
