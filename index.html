@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111827">
+  <title>RemindMe</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f5f7fb;
+      color: #111827;
+      min-height: 100vh;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      padding: 25px 20px;
+      border-radius: 0 0 25px 25px;
+    }
+
+    header h1 {
+      font-size: 28px;
+      margin-bottom: 6px;
+    }
+
+    header p {
+      opacity: 0.75;
+      font-size: 14px;
+    }
+
+    .container {
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .quick-actions {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: -5px;
+    }
+
+    .action {
+      background: white;
+      border-radius: 18px;
+      padding: 18px 8px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+      cursor: pointer;
+    }
+
+    .action .icon {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .action p {
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .section-title {
+      margin: 28px 0 12px;
+      font-size: 19px;
+    }
+
+    .empty {
+      background: white;
+      padding: 30px 20px;
+      border-radius: 18px;
+      text-align: center;
+      color: #6b7280;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+
+    .empty .big-icon {
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      display: flex;
+      justify-content: space-around;
+      padding: 12px 5px;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    .nav-item {
+      text-align: center;
+      color: #6b7280;
+      font-size: 12px;
+    }
+
+    .nav-item .nav-icon {
+      font-size: 22px;
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .active {
+      color: #111827;
+      font-weight: bold;
+    }
+
+    @media (min-width: 601px) {
+      body {
+        max-width: 600px;
+        margin: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>RemindMe</h1>
+    <p>Your day, organized.</p>
+  </header>
+
+  <div class="container">
+
+    <div class="quick-actions">
+
+      <div class="action" onclick="addAlarm()">
+        <div class="icon">⏰</div>
+        <p>Alarm</p>
+      </div>
+
+      <div class="action" onclick="addReminder()">
+        <div class="icon">🔔</div>
+        <p>Reminder</p>
+      </div>
+
+      <div class="action" onclick="addEvent()">
+        <div class="icon">📅</div>
+        <p>Event</p>
+      </div>
+
+    </div>
+
+    <h2 class="section-title">Upcoming</h2>
+
+    <div class="empty" id="upcoming">
+      <div class="big-icon">🗓️</div>
+      <p>No upcoming reminders or events.</p>
+      <br>
+      <small>Add something to get started.</small>
+    </div>
+
+  </div>
+
+  <nav class="bottom-nav">
+
+    <div class="nav-item active">
+      <span class="nav-icon">🏠</span>
+      Home
+    </div>
+
+    <div class="nav-item">
+      <span class="nav-icon">⏰</span>
+      Alarms
+    </div>
+
+    <div class="nav-item">
+      <span class="nav-icon">🔔</span>
+      Reminders
+    </div>
+
+    <div class="nav-item">
+      <span class="nav-icon">📅</span>
+      Events
+    </div>
+
+  </nav>
+
+  <script>
+
+    function addAlarm() {
+      alert("Alarm feature coming next!");
+    }
+
+    function addReminder() {
+      alert("Reminder feature coming next!");
+    }
+
+    function addEvent() {
+      alert("Event feature coming next!");
+    }
+
+  </script>
+
+</body>
+        </html>
