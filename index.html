@@ -212,7 +212,76 @@
       padding: 12px 5px;
       border-top: 1px solid #e5e7eb;
       z-index: 10;
-    }
+    }<!-- EVENT MODAL -->
+
+<div class="modal" id="eventModal">
+
+  <div class="modal-content">
+
+    <h2>📅 New Event</h2>
+
+    <div class="input-group">
+      <label>Event name</label>
+      <input
+        type="text"
+        id="eventTitle"
+        placeholder="e.g. Birthday Party"
+      >
+    </div>
+
+    <div class="input-group">
+      <label>Date</label>
+      <input
+        type="date"
+        id="eventDate"
+      >
+    </div>
+
+    <div class="input-group">
+      <label>Time</label>
+      <input
+        type="time"
+        id="eventTime"
+      >
+    </div>
+
+    <div class="input-group">
+      <label>Location</label>
+      <input
+        type="text"
+        id="eventLocation"
+        placeholder="e.g. Lagos"
+      >
+    </div>
+
+    <div class="input-group">
+      <label>Notes</label>
+      <input
+        type="text"
+        id="eventNotes"
+        placeholder="Add a note"
+      >
+    </div>
+
+    <div class="buttons">
+
+      <button
+        class="btn cancel"
+        onclick="closeEventModal()">
+        Cancel
+      </button>
+
+      <button
+        class="btn save"
+        onclick="saveEvent()">
+        Save Event
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
 
     .nav-item {
       text-align: center;
@@ -267,7 +336,7 @@
       <p>Reminder</p>
     </div>
 
-    <div class="action" onclick="comingSoon('Event')">
+    <div class="action" onclick="openEventModal()"
       <div class="icon">📅</div>
       <p>Event</p>
     </div>
@@ -420,7 +489,7 @@
 
   <div
     class="nav-item"
-    onclick="comingSoon('Event')">
+    onclick="openEventModal()"
 
     <span class="nav-icon">📅</span>
     Events
@@ -913,7 +982,301 @@
   /* =========================
      HELPERS
   ========================= */
+/* =========================
+   EVENTS
+========================= */
 
+let events = JSON.parse(
+  localStorage.getItem("remindme_events")
+) || [];
+
+
+function openEventModal() {
+
+  document.getElementById(
+    "eventModal"
+  ).style.display = "flex";
+
+}
+
+
+function closeEventModal() {
+
+  document.getElementById(
+    "eventModal"
+  ).style.display = "none";
+
+  document.getElementById(
+    "eventTitle"
+  ).value = "";
+
+  document.getElementById(
+    "eventDate"
+  ).value = "";
+
+  document.getElementById(
+    "eventTime"
+  ).value = "";
+
+  document.getElementById(
+    "eventLocation"
+  ).value = "";
+
+  document.getElementById(
+    "eventNotes"
+  ).value = "";
+
+}
+
+
+function saveEvent() {
+
+  const title =
+    document.getElementById(
+      "eventTitle"
+    ).value.trim();
+
+  const date =
+    document.getElementById(
+      "eventDate"
+    ).value;
+
+  const time =
+    document.getElementById(
+      "eventTime"
+    ).value;
+
+  const location =
+    document.getElementById(
+      "eventLocation"
+    ).value.trim();
+
+  const notes =
+    document.getElementById(
+      "eventNotes"
+    ).value.trim();
+
+
+  if (!title) {
+
+    alert(
+      "Please enter an event name."
+    );
+
+    return;
+
+  }
+
+
+  if (!date) {
+
+    alert(
+      "Please choose an event date."
+    );
+
+    return;
+
+  }
+
+
+  if (!time) {
+
+    alert(
+      "Please choose an event time."
+    );
+
+    return;
+
+  }
+
+
+  events.push({
+
+    id: Date.now(),
+
+    title: title,
+
+    date: date,
+
+    time: time,
+
+    location: location,
+
+    notes: notes
+
+  });
+
+
+  localStorage.setItem(
+
+    "remindme_events",
+
+    JSON.stringify(events)
+
+  );
+
+
+  closeEventModal();
+
+  displayEvents();
+
+}
+
+
+function deleteEvent(id) {
+
+  events =
+    events.filter(
+      event => event.id !== id
+    );
+
+
+  localStorage.setItem(
+
+    "remindme_events",
+
+    JSON.stringify(events)
+
+  );
+
+
+  displayEvents();
+
+}
+
+
+function displayEvents() {
+
+  const list =
+    document.getElementById(
+      "reminderList"
+    );
+
+
+  if (!list) return;
+
+
+  let eventSection =
+    document.getElementById(
+      "eventList"
+    );
+
+
+  if (!eventSection) {
+
+    eventSection =
+      document.createElement(
+        "div"
+      );
+
+    eventSection.id =
+      "eventList";
+
+    list.parentNode.appendChild(
+      eventSection
+    );
+
+  }
+
+
+  if (events.length === 0) {
+
+    eventSection.innerHTML = "";
+
+    return;
+
+  }
+
+
+  events.sort((a, b) => {
+
+    const first =
+      a.date + " " + a.time;
+
+    const second =
+      b.date + " " + b.time;
+
+    return first.localeCompare(
+      second
+    );
+
+  });
+
+
+  eventSection.innerHTML = `
+
+    <h2 class="section-title">
+      My Events
+    </h2>
+
+    ${
+      events.map(event => `
+
+        <div class="item-card">
+
+          <div class="item-top">
+
+            <div>
+
+              <div class="item-title">
+
+                📅 ${escapeHTML(
+                  event.title
+                )}
+
+              </div>
+
+              <div class="item-info">
+
+                📅 ${formatDate(
+                  event.date
+                )}
+
+                <br>
+
+                ⏰ ${formatTime(
+                  event.time
+                )}
+
+                ${
+                  event.location
+                    ? `<br>📍 ${escapeHTML(
+                        event.location
+                      )}`
+                    : ""
+                }
+
+                ${
+                  event.notes
+                    ? `<br>📝 ${escapeHTML(
+                        event.notes
+                      )}`
+                    : ""
+                }
+
+              </div>
+
+            </div>
+
+
+            <button
+              class="delete-btn"
+              onclick="deleteEvent(${event.id})">
+
+              ×
+
+            </button>
+
+          </div>
+
+        </div>
+
+      `).join("")
+    }
+
+  `;
+
+  }
   function formatTime(time) {
 
     const [hour, minute] =
@@ -995,7 +1358,7 @@
 
   displayReminders();
 
-
+  displayEvents();
   /* SERVICE WORKER */
 
   if (
