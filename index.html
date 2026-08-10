@@ -744,8 +744,29 @@
 
       `).join("");
   }
+function scheduleEventReminder(event) {
+  if (!("Notification" in window)) return;
+  if (Notification.permission !== "granted") return;
+  if (!event.reminder) return;
 
+  const eventTime = new Date(
+    event.date + "T" + event.time
+  ).getTime();
 
+  const reminderTime =
+    eventTime - (Number(event.reminder) * 60 * 1000);
+
+  const delay = reminderTime - Date.now();
+
+  if (delay <= 0) return;
+
+  setTimeout(() => {
+    new Notification("📅 Event Reminder", {
+      body: event.title,
+      icon: "./icon-192.png"
+    });
+  }, delay);
+        }
   /* =========================
      EVENTS
   ========================= */
@@ -824,7 +845,7 @@
       JSON.stringify(events)
     );
 
-
+scheduleEventReminder(events[events.length - 1]);
     closeEventModal();
     displayEvents();
   }
