@@ -808,13 +808,15 @@
 
 
     events.push({
-      id: Date.now(),
-      title: title,
-      date: date,
-      time: time,
-      location: location,
-      notes: notes
-    });
+  id: Date.now(),
+  title: title,
+  date: date,
+  time: time,
+  reminder: document.getElementById("eventReminder").value,
+  location: location,
+  notes: notes
+});
+    
 
 
     localStorage.setItem(
